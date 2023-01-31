@@ -2,32 +2,36 @@
 import { ref } from "vue";
 
 const todoText = ref("");
-
+const emit = defineEmits(["toDoAdded,ToDoCleared"]);
 function addToDo() {
-  toDos.value.push(todoText.value);
+  emit("toDoAdded", todoText.value);
   todoText.value = "";
 }
-function removeToDo(index) {
-  toDos.value.splice(index, 1);
+
+function clearToDo(clear) {
+  emit("toDoCleared", clear);
 }
 
-function clearToDo() {
-  toDos.value = [];
-}
+// (toDos.value = [])
+// function clearToDo() {
+//   toDos.value = [];
+// }
 
+// const todos=ref(
 
-
-
-// function addNewTodo(todo)
-//  {
-//       todos.value.push(todo);
-//  }
-
- const emit = defineEmits(['toDoAdded'])
-function addToDoo(params) {
-    emit('toDoAdded' , params)
-
-}
+//   {
+//     text: "tanulj Vue.js-t",
+//     priority: "High",
+//     created_at: "2023-01-30",
+//     status: "Active"
+//   },
+//   {
+//     text: "tanulj angolul",
+//     priority: "High",
+//     created_at: "2023-01-30",
+//     status: "Active"
+//   }
+// )
 </script>
 
 <template>
@@ -36,18 +40,9 @@ function addToDoo(params) {
 
     <div>
       <input type="text" v-model="todoText" />
-      <button @click="addToDo(todoText)">Submit</button>
-      <pre></pre>
-    </div>
-    <div>
-      <li v-for="(todo, index) in toDos" v-bind:key="todo.id">
-        {{ todo }}
-        <button @click="removeToDo(index)">delete</button>
-      </li>
+      <button class="border-radius: 50%" @click="addToDo(todoText)">
+        &#43;
+      </button>
     </div>
   </div>
-
-
-
-
 </template>
