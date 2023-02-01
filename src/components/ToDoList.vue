@@ -1,8 +1,17 @@
 <template>
   <li v-for="(todo, index) in toDos" v-bind:key="todo.id">
     {{ todo }}
-    <button @click="removeToDo(index)">delete</button>
+    <button class="border-radius: 50%;" @click="removeToDo(index)">delete</button>
   </li>
+<div>
+
+
+
+</div>
+
+
+
+
 </template>
 
 <script setup>
@@ -15,4 +24,6 @@ function removeToDo(index) {
 const props = defineProps({
   toDos: { type: Array, required: true },
 });
+
+
 </script>

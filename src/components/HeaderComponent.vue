@@ -6,7 +6,9 @@
       <span class="inline-block align-middle TodoHeader">
         To Do List
       </span><input type="text" v-model="todoText" />
-      <button  @click="addToDo(todoText)"><img class=" h-[59.64px;] w-[59.64px]" :src="pluszGomb" ></button>
+      <button class="bg-green-500 text-white rounded-full w-[60px] h-[60px] text-3xl" @click="addToDo(todoText)">
+        <span class="flex justify-center " ><img :src=buttonIcon ></span>
+      </button>
       
     </div>
     <div>
@@ -26,14 +28,14 @@
 
 
 
-   
+  
 </template>
 
 <script setup >
 import TodoForm from "./TodoForm.vue";
 import pluszGomb from "./../assets/pluszGomb.svg"
 import { ref } from "vue";
-
+import buttonIcon from "./../assets/buttonIcon.svg"
 const todoText = ref("");
 const emit = defineEmits(["toDoAdded"]);
 function addToDo() {
