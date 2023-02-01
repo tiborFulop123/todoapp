@@ -1,19 +1,19 @@
 <script setup>
-import { ref } from "vue";
+  import { ref } from 'vue';
 
-const todoText = ref("");
-const emit = defineEmits(["toDoAdded,ToDoCleared"]);
-function addToDo() {
-  emit("toDoAdded", todoText.value);
-  todoText.value = "";
-}
-
-function clearToDo(clear) {
-  emit("toDoCleared", clear);
-  {
-    toDos.value = [];
+  const todoText = ref('');
+  const emit = defineEmits(['toDoAdded,ToDoCleared']);
+  function addToDo() {
+    emit('toDoAdded', todoText.value);
+    todoText.value = '';
   }
-}
+
+  function clearToDo(clear) {
+    emit('toDoCleared', clear);
+    {
+      toDos.value = [];
+    }
+  }
 </script>
 
 <template>
