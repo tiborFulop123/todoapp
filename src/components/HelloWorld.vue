@@ -4,7 +4,7 @@ import TodoForm from "./TodoForm.vue";
 import { ref } from "vue";
 import ToDoList from "./ToDoList.vue";
 import HeaderComponent from "./HeaderComponent.vue";
-
+import toDoListMT from "./../assets/toDoListMT.svg"
 const toDos = ref([]);
 function addNewTodo(todo) {
   toDos.value.push(todo);
@@ -17,17 +17,19 @@ function clearToDo() {
 }
 
 
-
 </script>
 
 <template>
 
   <div>    </div>
   <HeaderComponent @toDoAdded="addNewTodo" ></HeaderComponent>
-  <TodoForm @toDoCleared="clearToDo" > </TodoForm>
-  <ToDoList @toDoDeleted="removeToDo" :toDos="toDos"></ToDoList>
 
+  <ToDoList v-if="toDos?.length" @toDoDeleted="removeToDo" :toDos="toDos"></ToDoList>
 
+  <div v-else >  
+
+<img :src= toDoListMT> 
+
+</div>
 </template>
 
-<!-- @toDoAdded="addNewTodo" -->

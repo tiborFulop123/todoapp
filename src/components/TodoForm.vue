@@ -5,13 +5,6 @@ const todoText = ref("");
 
 
 
-// function clearToDo(clear) {
-//   emit("toDoCleared", clear);{
-
-//     (toDos.value = [])
-
-//   }
-// }
 
 
 
@@ -47,14 +40,7 @@ const todoText = ref("");
 
 <template>
   <div>
-    <!-- <button class="" @click="clearToDo">clear</button> -->
-<!-- 
-    <div>
-      <input type="text" v-model="todoText" />
-      <button class="" @click="addToDo(todoText)">
-        
-      </button>
-    </div> -->
+   
   </div>
 </template>
 <style>  

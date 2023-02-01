@@ -13,18 +13,11 @@
     </div>
     <div>
 
-
     </div>
+ 
+ 
   </header>
-  <!-- 
-
-    <div>
-      <input type="text" v-model="todoText" />
-      <button class="" @click="addToDo(todoText)">&#43;</button> 
-    </div>
-   -->
-  <!-- 
-   <TodoForm     @toDoAdded="addNewTodo">   </TodoForm> -->
+  
 
 
 
@@ -33,30 +26,18 @@
 
 <script setup >
 import TodoForm from "./TodoForm.vue";
-import pluszGomb from "./../assets/pluszGomb.svg"
 import { ref } from "vue";
 import buttonIcon from "./../assets/buttonIcon.svg"
+
 const todoText = ref("");
 const emit = defineEmits(["toDoAdded"]);
+
 function addToDo() {
   emit("toDoAdded", todoText.value);
   todoText.value = "";
+  
 }
 
-// export default {
-//   data() {
-//     return {
-//       title: "To Do List",
-//     };
-//   },
-//   components: { TodoForm },
-// };
-
-// const toDos = ref([]);
-// function addNewTodo(todo) {
-//   toDos.value.push(todo);
-// }
-// // const emit = defineEmits(["toDoAdded"])
 </script>
 
 <style>
@@ -70,5 +51,6 @@ function addToDo() {
   font-size: 72px;
   line-height: 86px;
 }
+
 
 </style>

@@ -9,12 +9,13 @@
 
 </div>
 
-
+<img >
 
 
 </template>
 
 <script setup>
+
 const emit = defineEmits(["toDoDeleted"]);
 
 function removeToDo(index) {
