@@ -4,13 +4,14 @@
   import HeaderComponent from './HeaderComponent.vue';
   import toDoListPlaceHolder from './../assets/toDoListPlaceHolder.svg';
   const toDos = ref([]);
+
   function addNewTodo() {
     const newToDo = {
-      title: 'Title',
-      text: 'tanulj Vue.js-t',
-      priority: 'High',
-      created_at: '2023-01-30',
-      status: 'Active',
+      title: '',
+      text: '',
+      priority: '',
+      created_at: '',
+      status: '',
     };
 
     toDos.value.push(newToDo);
@@ -27,6 +28,7 @@
     v-if="toDos?.length"
     @toDoDeleted="removeToDo"
     :toDos="toDos"
+    @toDoAdded="addNewTodo"
   ></ToDoList>
 
   <div v-else>
