@@ -28,3 +28,8 @@
     toDos: { type: Array, required: true },
   });
 </script>
+
+<!-- felhasználó látnia kell a teendő listát, 
+  amely megjeleníti   a megadott szöveget, együtt más
+   információkkal, mint például a teendő 
+   hozzáadásának dátuma és időpontja. -->
