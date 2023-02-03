@@ -2,7 +2,7 @@
   import { ref } from 'vue';
   import ToDoList from './ToDoList.vue';
   import HeaderComponent from './HeaderComponent.vue';
-  import toDoListMT from './../assets/toDoListMT.svg';
+  import toDoListPlaceHolder from './../assets/toDoListPlaceHolder.svg';
   const toDos = ref([]);
   function addNewTodo() {
     const newToDo = {
@@ -30,6 +30,6 @@
   ></ToDoList>
 
   <div v-else>
-    <img :src="toDoListMT" />
+    <img class="w-[288px] sm:w-[410px]" :src="toDoListPlaceHolder" />
   </div>
 </template>
