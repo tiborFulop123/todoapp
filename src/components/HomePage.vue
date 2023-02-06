@@ -3,14 +3,15 @@
   import ToDoList from './ToDoList.vue';
   import HeaderComponent from './HeaderComponent.vue';
   import toDoListPlaceHolder from './../assets/toDoListPlaceHolder.svg';
+
   const toDos = ref([]);
 
   function addNewTodo() {
     const newToDo = {
-      title: '',
-      text: '',
-      priority: '',
-      created_at: '',
+      title: 'Title',
+      text: 'Text',
+      priority: 'High',
+      created_at: '24.07.21',
       status: '',
     };
 

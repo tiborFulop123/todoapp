@@ -6,22 +6,24 @@
       <div>{{ todo.priority }}</div>
       <div>{{ todo.created_at }}</div>
       <div>{{ todo.status }}</div>
-      <li v-if="todo.title == ''">Addtask</li>
+      <li v-if="todo.text == ''"></li>
+      <li v-if="todo.title == ''"></li>
+      <li v-if="todo.created_at == ''"></li>
+      <li v-if="todo.priority == ''"></li>
     </div>
     <div v-else>
-      <input
-        v-model="toDos[index].title"
-        placeholder="Addtask"
-        class="bg-red-500"
-      />
+      <input v-model="toDos[index].text" placeholder="Addtask" />
+
+      <input v-model="toDos[index].title" placeholder="Title" />
+      <input v-model="toDos[index].created_at" placeholder="Date" />
+      <input v-model="toDos[index].priority" placeholder="Priority" />
     </div>
+
     <button class="border-radius: 50%;" @click="removeToDo(index)">
       delete
     </button>
   </li>
   <div></div>
-
-  <img />
 </template>
 
 <script setup>
