@@ -12,7 +12,7 @@
         <p
           class="w-full placeholder-black sm:text-5xl text-lg flex font-bold text-area lg:flex mt-5"
         >
-          Title
+          {{ toDo.title }}
         </p>
         <div
           class="flex w-full items-center sm:h-[12px] h-[5px] lg:flex hidden"

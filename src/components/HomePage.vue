@@ -9,17 +9,20 @@
 
   function addNewTodo() {
     const newToDo = {
-      title: 'Title',
+      title: '',
       text: 'Cras placerat proin.',
       priority: 'High',
-      created_at: newDate(),
+      title: 'Title',
+      id: Date.now(),
       icon: true,
     };
 
     toDos.value.push(newToDo);
   }
   function removeToDo(index) {
+    console.log(index);
     toDos.value.splice(index, 1);
+    console.log(toDos.value);
   }
 
   function newDate() {

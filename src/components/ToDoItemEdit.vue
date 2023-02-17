@@ -10,7 +10,7 @@
             type="text"
             placeholder="Title"
           />
-          <div class="flex w-full items-center sm:h-[12px] h-[5px] lg:flex">
+          <div class="flex w-full items-center sm:h-[12px] h-[5px] lg:hidden">
             <img :src="dateIcon" class="lg:hidden mr-1 h-3 w-3" />
             {{ newDate() }}
           </div>
@@ -72,6 +72,7 @@
   import ToDoPriority from './ToDoPriority.vue';
   import dateIcon from './../assets/dateIcon.svg';
   import ToDoListButtons from './ToDoListButtons.vue';
+  import popUpToDoListConfirmation from './popUpToDoListConfirmation.vue';
 
   const priorities = ['Low', 'Medium', 'High'];
   const selectedPriority = ref('');

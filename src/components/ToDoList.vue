@@ -11,7 +11,6 @@
       @toDoDeleted="removeToDo(index)"
       @toDoSaved="saveToDo(index)"
       :toDo="todo"
-      @click="editingIndex = index"
       @toDoUpdated="
         (newTodo) => {
           toDos[index] = newTodo;
@@ -35,8 +34,10 @@
 
   const emit = defineEmits(['toDoDeleted']);
 
-  function removeToDo() {
-    emit('toDoDeleted');
+  function removeToDo(index) {
+    emit('toDoDeleted', index);
+    console.log(index);
+    editingIndex.value = null;
   }
   function saveToDo() {
     editingIndex = null;
