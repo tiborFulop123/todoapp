@@ -1,8 +1,8 @@
 <template>
   <div
-    class="relative sm:mx-auto mx-[16px] flex sm:flex-col space-y-8 justify-center rounded-2xl bg-white border-black border-2 p-[18px] m-[50px] sm:w-[610px] w-[320px] flex-row"
+    class="relative sm:mx-auto mx-4 flex sm:flex-col space-y-8 justify-center rounded-2xl bg-white border-black border-2 p-[18px] m-[50px] sm:w-[610px] w-80 flex-row"
   >
-    <div class="w-full lg:flex flex flex-row">
+    <div class="w-full flex flex-row">
       <div class="m-auto mr-5">
         <div
           class="p-2 border-black border-[3px] rounded-full w-6 h-6 flex-row lg:hidden"
@@ -12,6 +12,7 @@
         <p
           class="w-full placeholder-black sm:text-5xl text-lg flex font-bold text-area lg:flex mt-5"
         >
+          Title
           {{ toDo.title }}
         </p>
         <div
@@ -29,19 +30,19 @@
 
       <div class="flex">
         <div
-          class="sm:invisible visible rounded-full h-[10px] w-[10px] my-9"
+          class="sm:invisible visible rounded-full h-2.5 w-2.5 my-9"
           :class="{
-            'bg-green-500': 'Low' == localTodo.priority,
-            'bg-yellow-500': 'Medium' == localTodo.priority,
-            'bg-red-500': 'High' == localTodo.priority,
+            'bg-green-500': 'Low' === localTodo.priority,
+            'bg-yellow-500': 'Medium' === localTodo.priority,
+            'bg-red-500': 'High' === localTodo.priority,
           }"
         ></div>
-        <ToDoPriority v-model:priority="localTodo.priority" class="" />
+        <ToDoPriority v-model:priority="localTodo.priority" />
       </div>
     </div>
 
     <div class="flex w-full justify-between hidden">
-      <div class="">
+      <div>
         <p
           class="w-full placeholder-black leading-[3rem] sm:text-5xl text-lg flex mt-4 font-bold text-area lg:flex hidden"
         >
@@ -63,7 +64,7 @@
     >
       <div class="flex justify-between">
         <div class="sm:text-3xl text-base flex-wrap break-all lg:flex hidden">
-          <p>Cras placerat proin.</p>
+          <p placeholder="">Cras placerat proin.</p>
         </div>
 
         <div class="p-2 border-black border-[6px] rounded-full w-10 h-10"></div>
@@ -76,24 +77,11 @@
   import { ref } from 'vue';
   import ToDoPriority from './ToDoPriority.vue';
   import dateIcon from './../assets/dateIcon.svg';
-
+  import { newDate } from '../utils/date';
   const priorities = ['Low', 'Medium', 'High'];
   const selectedPriority = ref('');
   const localTodo = ref(props.toDo ?? '');
   const props = defineProps({
     toDo: { type: Object, required: true },
   });
-
-  function newDate() {
-    const today = new Date();
-    return (
-      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
-    );
-  }
-
-  {
-    {
-      newDate;
-    }
-  }
 </script>

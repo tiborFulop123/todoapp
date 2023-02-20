@@ -4,37 +4,24 @@
   import HeaderComponent from './HeaderComponent.vue';
   import toDoListPlaceHolder from './../assets/toDoListPlaceHolder.svg';
   import PopUpToDoListConfirmation from './popUpToDoListConfirmation.vue';
+  import { newDate } from '../utils/date';
 
   const toDos = ref([]);
 
   function addNewTodo() {
     const newToDo = {
       title: '',
-      text: 'Cras placerat proin.',
+      text: '',
       priority: 'High',
-      title: 'Title',
-      id: Date.now(),
+
+      id: newDate(),
       icon: true,
     };
 
     toDos.value.push(newToDo);
   }
   function removeToDo(index) {
-    console.log(index);
     toDos.value.splice(index, 1);
-    console.log(toDos.value);
-  }
-
-  function newDate() {
-    const today = new Date();
-    return (
-      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
-    );
-  }
-  {
-    {
-      newDate;
-    }
   }
 </script>
 

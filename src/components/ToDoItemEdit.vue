@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <div
       class="relative sm:mx-auto mx-[16px] flex flex-col space-y-8 justify-center rounded-2xl bg-white border-black border-2 p-[18px] m-[50px] sm:w-[610px] w-[320px]"
     >
@@ -16,34 +16,20 @@
           </div>
         </div>
 
-        <div class="mr-[5px]">
-          <button
-            @click="setPriority('Low')"
-            class="flex justify-center bg-green-500 rounded-2xl w-[10px] h-[10px] sm:invisible visible"
-            :class="{
-              'border border-black': 'Low' == toDo.priority,
-            }"
-          ></button>
-        </div>
-        <div class="mr-[5px]">
-          <button
-            :class="{
-              'border border-black': 'Medium' == toDo.priority,
-            }"
-            @click="setPriority('Medium')"
-            class="flex justify-center bg-yellow-500 rounded-2xl w-[10px] h-[10px] sm:invisible visible"
-          ></button>
-        </div>
-        <div class="mr-5px">
-          <button
-            :class="{
-              'border border-black': 'High' == toDo.priority,
-            }"
-            @click="setPriority('High')"
-            class="flex justify-center bg-red-500 rounded-2xl w-[10px] h-[10px] sm:invisible visible"
-          ></button>
-        </div>
         <ToDoPriority v-model:priority="localTodo.priority" />
+        <BaseButton
+          @click="setPriority('Low')"
+          :color="'bg-green-500'"
+        ></BaseButton
+        ><BaseButton
+          @click="setPriority('medium')"
+          :color="'bg-yellow-500'"
+        ></BaseButton
+        ><BaseButton
+          @click="setPriority('High')"
+          :color="'bg-red-500'"
+          :is-highlihted="false"
+        ></BaseButton>
       </div>
 
       <div
@@ -73,38 +59,22 @@
   import dateIcon from './../assets/dateIcon.svg';
   import ToDoListButtons from './ToDoListButtons.vue';
   import popUpToDoListConfirmation from './popUpToDoListConfirmation.vue';
+  import BaseButton from './BaseButton.vue';
 
+  import { newDate } from '../utils/date';
+  const emit = defineEmits(['toDoDeleted', 'toDoSaved']);
+  const props = defineProps({
+    toDo: { type: Object, required: true },
+  });
   const priorities = ['Low', 'Medium', 'High'];
   const selectedPriority = ref('');
   const localTodo = ref(props.toDo ?? '');
 
-  const emit = defineEmits(['toDoDeleted', 'toDoSaved']);
-
-  const props = defineProps({
-    toDo: { type: Object, required: true },
-  });
-
-  function removeToDo() {
-    emit('toDoDeleted');
-  }
   function saveToDo() {
-    editingIndex = null;
     emit('toDoSaved', { toDo: toDo[index], index });
   }
   function setPriority(priority) {
     const updatedTodo = { ...props.toDo, priority: priority };
     emit('toDoUpdated', updatedTodo);
-  }
-  function newDate() {
-    const today = new Date();
-    return (
-      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
-    );
-  }
-
-  {
-    {
-      newDate;
-    }
   }
 </script>

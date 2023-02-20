@@ -11,11 +11,7 @@
       @toDoDeleted="removeToDo(index)"
       @toDoSaved="saveToDo(index)"
       :toDo="todo"
-      @toDoUpdated="
-        (newTodo) => {
-          toDos[index] = newTodo;
-        }
-      "
+      @toDoUpdated="updateToDo(index, newTodo)"
     >
     </ToDoItemEdit>
   </div>
@@ -32,15 +28,22 @@
     toDos: { type: Array, required: true },
   });
 
-  const emit = defineEmits(['toDoDeleted']);
+  const emit = defineEmits(['toDoDeleted', 'upDatedToDos']);
 
   function removeToDo(index) {
     emit('toDoDeleted', index);
-    console.log(index);
+
     editingIndex.value = null;
   }
   function saveToDo() {
     editingIndex = null;
     emit('toDoSaved');
   }
+  function updateToDo(index, newTodo) {
+    // props.toDos[index] = newTodo;
+    const newTodos = [...props.toDos];
+    newTodos[index] = newTodo;
+    emit('upDatedToDos', newTodos);
+  }
+  // function upDatedToDos()
 </script>
