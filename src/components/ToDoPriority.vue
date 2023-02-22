@@ -10,7 +10,7 @@
         class="flex justify-center relative bg-white rounded-2xl sm:w-[125px] sm:h-[33px] w-[10px] h-[10px] sm:visible invisible"
         :class="colorPriority"
       >
-        {{ priority }} <img />
+        {{ priority }}
         <div
           v-if="isDropDownShown"
           id="PriorityPicker"
@@ -32,7 +32,7 @@
 <script setup>
   import { ref, computed } from 'vue';
   import VectorDown from './../assets/VectorDown.svg';
-
+  import { priorities } from '../utils/priorities';
   const props = defineProps({ priority: { type: String } });
 
   const emit = defineEmits(['update:priority']);
@@ -43,13 +43,13 @@
     if (isDropDownShown.value) {
       return 'bg-white';
     }
-    if (props.priority === 'High') {
+    if (props.priority === priorities.High) {
       return 'bg-red-500 text-white';
-    } else if (props.priority === 'Medium') {
-      return 'bg-yellow-500 text-white';
-    } else if (props.priority === 'Low') {
-      return 'bg-green-300 text-white';
     }
+    if (props.priority === priorities.Medium) {
+      return 'bg-yellow-500 text-white';
+    }
+    if (props.priority === priorities.Low) return 'bg-green-300 text-white';
   });
 
   function toggleDropDown() {

@@ -43,19 +43,15 @@
           class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md"
         >
           <button
-            class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+            class="confirm-button"
             type="button"
             data-bs-dismiss="modal"
             @click="closeModal"
           >
             No
           </button>
-          <button
-            type="button"
-            class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1"
-            @click="YesConfirm"
-          >
-            Yes
+          <button type="button" class="confirm-button" @click="onConfirm">
+            Confirm
           </button>
         </div>
       </div>
@@ -63,9 +59,9 @@
   </div>
 </template>
 <script setup>
-  const emit = defineEmits(['closeModal', 'YesConfirm']);
-  function YesConfirm() {
-    emit('YesConfirm');
+  const emit = defineEmits(['closeModal', 'onConfirm']);
+  function onConfirm() {
+    emit('onConfirm');
   }
   function closeModal() {
     emit('closeModal');
@@ -77,3 +73,8 @@
     },
   });
 </script>
+<style scoped>
+  .confirm-button {
+    @apply inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out;
+  }
+</style>

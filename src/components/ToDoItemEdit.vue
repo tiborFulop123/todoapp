@@ -12,7 +12,7 @@
           />
           <div class="flex w-full items-center sm:h-[12px] h-[5px] lg:hidden">
             <img :src="dateIcon" class="lg:hidden mr-1 h-3 w-3" />
-            {{ newDate() }}
+            {{ localTodo.createdAt }}
           </div>
         </div>
 
@@ -36,9 +36,9 @@
         class="w-full p-2 flex flex-row justify-between text-xl break-all text-gray-500 sm:text-3xl font-semibold"
       >
         <div>
-          {{ text }}
           <div class="sm:text-xl text-base flex-wrap break-all">
             <textarea
+              v-model="todoText"
               class="h-20 w-full"
               type="text"
               placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nec purus et mauris amet aenean duis aenean. Egestas amet, sollicitudin nisl in."
@@ -47,7 +47,10 @@
         </div>
       </div>
       <div>
-        <ToDoListButtons @toDoDeleted="removeToDo"></ToDoListButtons>
+        <ToDoListButtons
+          @toDoDeleted="removeToDo"
+          @indexEditing="setEditing"
+        ></ToDoListButtons>
       </div>
     </div>
   </div>
@@ -58,18 +61,16 @@
   import ToDoPriority from './ToDoPriority.vue';
   import dateIcon from './../assets/dateIcon.svg';
   import ToDoListButtons from './ToDoListButtons.vue';
-  import popUpToDoListConfirmation from './popUpToDoListConfirmation.vue';
   import BaseButton from './BaseButton.vue';
 
-  import { newDate } from '../utils/date';
   const emit = defineEmits(['toDoDeleted', 'toDoSaved']);
   const props = defineProps({
     toDo: { type: Object, required: true },
   });
-  const priorities = ['Low', 'Medium', 'High'];
+
   const selectedPriority = ref('');
   const localTodo = ref(props.toDo ?? '');
-
+  const todoText = '';
   function saveToDo() {
     emit('toDoSaved', { toDo: toDo[index], index });
   }

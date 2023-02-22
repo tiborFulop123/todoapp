@@ -13,15 +13,17 @@
       title: '',
       text: '',
       priority: 'High',
-
-      id: newDate(),
-      icon: true,
+      createdAt: newDate(),
+      completed: true,
     };
 
     toDos.value.push(newToDo);
   }
   function removeToDo(index) {
     toDos.value.splice(index, 1);
+  }
+  function upDateToDos(upDatedToDos) {
+    toDos.value = upDatedToDos;
   }
 </script>
 
@@ -32,6 +34,7 @@
 
     <ToDoList
       v-if="toDos?.length"
+      @upDatedTodos="upDateToDos"
       @toDoDeleted="removeToDo"
       :toDos="toDos"
       @toDoAdded="addNewTodo"
