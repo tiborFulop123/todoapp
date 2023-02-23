@@ -8,6 +8,7 @@
         Save
       </button>
     </div>
+
     <div class="ml-10">
       <button
         class="rounded-lg sm:px-[40px] sm:py-[15px] px-[15px] py-[5px] text-black font-bold just"
@@ -17,38 +18,40 @@
         Delete
       </button>
     </div>
-    <ConfirmDelete
+
+    <PopUpToDoListConfirmation
       :is-open="isModalOpen"
       @close-modal="closeModal"
       @onConfirm="removeToDo"
-    ></ConfirmDelete>
+    />
   </div>
 </template>
 
 <script setup>
   import { ref } from 'vue';
-  import ConfirmDelete from './ConfirmDelete.vue';
 
+  import PopUpToDoListConfirmation from './PopUpToDoListConfirmation.vue';
+
+  //begin-region Variables
   const emit = defineEmits(['toDoDeleted']);
-  const props = defineProps({
-    toDos: { type: Array, required: true },
-  });
+
   const isModalOpen = ref(false);
+
+  //end-region
+
+  //begin-region Functions
 
   function openModal() {
     isModalOpen.value = true;
   }
 
-  function saveToDo() {
-    editingIndex = null;
-    emit('toDoSaved');
-  }
-  function removeToDo(index) {
-    emit('toDoDeleted', index);
-
-    editingIndex.value = null;
-  }
   function closeModal() {
     isModalOpen.value = false;
   }
+
+  function removeToDo(index) {
+    emit('toDoDeleted', index);
+  }
+
+  //end-region
 </script>

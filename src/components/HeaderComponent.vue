@@ -20,9 +20,17 @@
 <script setup>
   import buttonIcon from './../assets/buttonIcon.svg';
 
+  //begin-region Variables
+
   const emit = defineEmits(['toDoAdded']);
+
+  //end-region
+
+  //begin-region Functions
 
   function addToDo() {
     emit('toDoAdded');
   }
+
+  //end-region
 </script>

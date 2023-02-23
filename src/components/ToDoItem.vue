@@ -17,6 +17,7 @@
           Title
           {{ toDo.title }}
         </p>
+
         <div
           class="flex w-full items-center sm:h-[12px] h-[5px] lg:flex hidden"
         >
@@ -35,6 +36,7 @@
           class="sm:invisible visible rounded-full h-2.5 w-2.5 my-9"
           :class="colors"
         ></div>
+
         <ToDoPriority v-model:priority="localTodo.priority" />
       </div>
     </div>
@@ -53,6 +55,7 @@
       </div>
       <div class="flex w-full items-center sm:h-[12px] h-[5px] lg:flex hidden">
         <img :src="dateIcon" class="lg:flex hidden mr-1 h-3 w-3" />
+
         {{ localTodo.createdAt }}
       </div>
     </div>
@@ -69,29 +72,28 @@
       </div>
     </div>
   </div>
+
   <ToDoItemEdit
     v-else
     @toDoDeleted="removeToDo"
     @toDoSaved="saveTodo"
     :toDo="toDo"
-  >
-  </ToDoItemEdit>
+    @toDoUpdated="updateToDo"
+  />
 </template>
 
 <script setup>
   import { ref, computed } from 'vue';
-  import ToDoPriority from './ToDoPriority.vue';
-  import dateIcon from './../assets/dateIcon.svg';
+
   import { priorities } from '../utils/priorities';
+
+  import ToDoPriority from './ToDoPriority.vue';
+
   import ToDoItemEdit from './ToDoItemEdit.vue';
 
-  const props = defineProps({
-    toDo: { type: Object, required: true },
-    isEditing: { type: Boolean },
-  });
-  const selectedPriority = ref('');
+  import dateIcon from './../assets/dateIcon.svg';
 
-  const localTodo = ref(props.toDo ?? '');
+  //begin-region Variables
 
   const emit = defineEmits([
     'toDoDeleted',
@@ -99,6 +101,13 @@
     'toDoUpdated',
     'toDoEditingIndex',
   ]);
+
+  const props = defineProps({
+    toDo: { type: Object, required: true },
+    isEditing: { type: Boolean },
+  });
+
+  const localTodo = ref(props.toDo ?? '');
 
   const colors = computed(() => {
     if (localTodo.value.priority === priorities.High) {
@@ -110,11 +119,12 @@
     if (localTodo.value.priority === priorities.Low) return 'bg-green-300';
   });
 
+  //end-region
+
+  //begin-region Functions
+
   function removeToDo(index) {
     emit('toDoDeleted', index);
-  }
-  function saveTodo(index) {
-    emit('toDoSaved');
   }
 
   function updateToDo(index, newTodo) {
@@ -126,4 +136,6 @@
   function setEditing() {
     emit('selectEditing');
   }
+
+  //end-region
 </script>

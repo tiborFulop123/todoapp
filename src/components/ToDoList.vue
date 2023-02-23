@@ -1,18 +1,20 @@
 <template>
-  <div v-for="(todo, index) in toDos" v-bind:key="todo.id">
+  <div v-for="(todo, index) in toDos" :key="todo.id">
     <ToDoItem
       @selectEditing="setEditing(index)"
       :isEditing="editingIndex === index"
       @toDoDeleted="removeToDo(index)"
       :toDo="todo"
-      @indexEditing="setEditing(index)"
     />
   </div>
 </template>
 
 <script setup>
-  import ToDoItem from './ToDoItem.vue';
   import { ref } from 'vue';
+
+  import ToDoItem from './ToDoItem.vue';
+
+  //begin-region Variables
 
   const editingIndex = ref(null);
 
@@ -21,18 +23,12 @@
   });
 
   const emit = defineEmits(['toDoDeleted', 'upDatedToDos', 'toDoEditingIndex']);
+  //end-region
+
+  //begin-region Functions
 
   function setEditing(index) {
     editingIndex.value = index;
   }
-
-  function saveToDo() {
-    editingIndex = null;
-    emit('toDoSaved');
-  }
-  function updateToDo(index, newTodo) {
-    const newTodos = [...props.toDos];
-    newTodos[index] = newTodo;
-    emit('upDatedToDos', newTodos);
-  }
+  //end-region
 </script>

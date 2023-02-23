@@ -10,26 +10,30 @@
             type="text"
             placeholder="Title"
           />
+
           <div class="flex w-full items-center sm:h-[12px] h-[5px] lg:hidden">
             <img :src="dateIcon" class="lg:hidden mr-1 h-3 w-3" />
+
             {{ localTodo.createdAt }}
           </div>
         </div>
 
         <ToDoPriority v-model:priority="localTodo.priority" />
+
         <BaseButton
-          @click="setPriority('Low')"
+          @click="setPriority(priorities.High)"
           :color="'bg-green-500'"
-        ></BaseButton
-        ><BaseButton
-          @click="setPriority('medium')"
+        />
+
+        <BaseButton
+          @click="setPriority(priorities.Medium)"
           :color="'bg-yellow-500'"
-        ></BaseButton
-        ><BaseButton
-          @click="setPriority('High')"
+        />
+        <BaseButton
+          @click="setPriority(priorities.Low)"
           :color="'bg-red-500'"
           :is-highlihted="false"
-        ></BaseButton>
+        />
       </div>
 
       <div
@@ -38,7 +42,7 @@
         <div>
           <div class="sm:text-xl text-base flex-wrap break-all">
             <textarea
-              v-model="todoText"
+              v-model="localTodo.text"
               class="h-20 w-full"
               type="text"
               placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nec purus et mauris amet aenean duis aenean. Egestas amet, sollicitudin nisl in."
@@ -46,11 +50,9 @@
           </div>
         </div>
       </div>
+
       <div>
-        <ToDoListButtons
-          @toDoDeleted="removeToDo"
-          @indexEditing="setEditing"
-        ></ToDoListButtons>
+        <ToDoListButtons />
       </div>
     </div>
   </div>
@@ -58,24 +60,34 @@
 
 <script setup>
   import { ref } from 'vue';
-  import ToDoPriority from './ToDoPriority.vue';
-  import dateIcon from './../assets/dateIcon.svg';
-  import ToDoListButtons from './ToDoListButtons.vue';
+
+  import { priorities } from '../utils/priorities';
+
   import BaseButton from './BaseButton.vue';
 
-  const emit = defineEmits(['toDoDeleted', 'toDoSaved']);
+  import ToDoPriority from './ToDoPriority.vue';
+
+  import ToDoListButtons from './ToDoListButtons.vue';
+
+  import dateIcon from './../assets/dateIcon.svg';
+
+  //begin-region Variables
+
+  const emit = defineEmits(['toDoDeleted', 'toDoSaved', 'toDoUpdated']);
+
   const props = defineProps({
     toDo: { type: Object, required: true },
   });
 
-  const selectedPriority = ref('');
   const localTodo = ref(props.toDo ?? '');
-  const todoText = '';
-  function saveToDo() {
-    emit('toDoSaved', { toDo: toDo[index], index });
-  }
+
+  //end-region
+
+  //begin-region Functions
   function setPriority(priority) {
     const updatedTodo = { ...props.toDo, priority: priority };
     emit('toDoUpdated', updatedTodo);
   }
+
+  //end-region
 </script>
