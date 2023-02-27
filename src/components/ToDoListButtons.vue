@@ -29,7 +29,6 @@
 
 <script setup>
   import { ref } from 'vue';
-
   import PopUpToDoListConfirmation from './PopUpToDoListConfirmation.vue';
 
   //begin-region Variables

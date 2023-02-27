@@ -11,7 +11,6 @@
 
 <script setup>
   import { ref } from 'vue';
-
   import ToDoItem from './ToDoItem.vue';
 
   //begin-region Variables

@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="!isEditing"
-    @click="setEditing"
     class="relative sm:mx-auto mx-4 flex sm:flex-col space-y-8 justify-center rounded-2xl bg-white border-black border-2 p-[18px] m-[50px] sm:w-[610px] w-80 flex-row"
+    @click="setEditing"
   >
     <div class="w-full flex flex-row">
       <div class="m-auto mr-5">
@@ -84,13 +84,9 @@
 
 <script setup>
   import { ref, computed } from 'vue';
-
   import { priorities } from '../utils/priorities';
-
   import ToDoPriority from './ToDoPriority.vue';
-
   import ToDoItemEdit from './ToDoItemEdit.vue';
-
   import dateIcon from './../assets/dateIcon.svg';
 
   //begin-region Variables

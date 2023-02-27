@@ -1,11 +1,11 @@
 <template>
   <div
+    v-if="isOpen"
     class="modal fade fixed top-0 z-10 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
     id="exampleModalCenter"
     tabindex="-1"
     aria-labelledby="exampleModalCenterTitle"
     aria-modal="true"
-    v-if="isOpen"
     @click="closeModal"
   >
     <div

@@ -7,9 +7,9 @@
   <div class="relative flex flex-wrap flex-col rounded-2xl">
     <div class="flex justify-end">
       <button
-        @click="toggleDropDown"
         class="flex justify-center relative bg-white rounded-2xl sm:w-[125px] sm:h-[33px] w-[10px] h-[10px] sm:visible invisible"
         :class="priorityColor"
+        @click="toggleDropDown"
       >
         {{ priority }}
 
@@ -35,7 +35,6 @@
 
 <script setup>
   import { ref, computed } from 'vue';
-
   import { priorities } from '../utils/priorities';
 
   //begin-region Variables

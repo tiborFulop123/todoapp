@@ -21,18 +21,18 @@
         <ToDoPriority v-model:priority="localTodo.priority" />
 
         <BaseButton
-          @click="setPriority(priorities.High)"
           :color="'bg-green-500'"
+          @click="setPriority(priorities.High)"
         />
 
         <BaseButton
-          @click="setPriority(priorities.Medium)"
           :color="'bg-yellow-500'"
+          @click="setPriority(priorities.Medium)"
         />
         <BaseButton
-          @click="setPriority(priorities.Low)"
           :color="'bg-red-500'"
           :is-highlihted="false"
+          @click="setPriority(priorities.Low)"
         />
       </div>
 
@@ -60,15 +60,10 @@
 
 <script setup>
   import { ref } from 'vue';
-
   import { priorities } from '../utils/priorities';
-
   import BaseButton from './BaseButton.vue';
-
   import ToDoPriority from './ToDoPriority.vue';
-
   import ToDoListButtons from './ToDoListButtons.vue';
-
   import dateIcon from './../assets/dateIcon.svg';
 
   //begin-region Variables

@@ -3,7 +3,7 @@
     <div>
       <input type="text" v-model="todoText" />
 
-      <button class="" @click="addToDo(todoText)">&#43;</button>
+      <button @click="addToDo(todoText)">&#43;</button>
     </div>
   </div>
 </template>

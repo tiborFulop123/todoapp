@@ -20,15 +20,10 @@
 
 <script setup>
   import { ref } from 'vue';
-
   import { newDate } from '../utils/date';
-
   import ToDoList from './ToDoList.vue';
-
   import HeaderComponent from './HeaderComponent.vue';
-
   import PopUpToDoListConfirmation from './PopUpToDoListConfirmation.vue';
-
   import toDoListPlaceholder from './../assets/toDoListPlaceholder.svg';
 
   //begin region Variables
