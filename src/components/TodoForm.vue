@@ -10,10 +10,11 @@
 
 <script setup>
   import { ref } from 'vue';
+  import { defineEmits } from 'vue';
 
   //begin-region Variables
 
-  const emit = defineEmits(['toDoAdded,ToDoCleared']);
+  const emit = defineEmits(['toDoAdded']);
 
   const todoText = ref('');
 

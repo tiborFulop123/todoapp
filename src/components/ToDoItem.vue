@@ -95,7 +95,7 @@
     'toDoDeleted',
     'toDoSaved',
     'toDoUpdated',
-    'toDoEditingIndex',
+    'selectEditing',
   ]);
 
   const props = defineProps({
