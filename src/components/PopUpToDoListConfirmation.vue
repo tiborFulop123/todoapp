@@ -28,12 +28,12 @@
             Confirmation PopUp
           </h5>
 
-          <button
+          <BaseButton
             type="button"
-            class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+            class="btn-close box-content text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
             data-bs-dismiss="modal"
             aria-label="Close"
-          ></button>
+          />
         </div>
 
         <div class="modal-body relative p-4">
@@ -46,18 +46,18 @@
         <div
           class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md"
         >
-          <button
+          <BaseButton
             class="confirm-button"
             type="button"
             data-bs-dismiss="modal"
             @click="closeModal"
           >
             No
-          </button>
+          </BaseButton>
 
-          <button type="button" class="confirm-button" @click="onConfirm">
+          <BaseButton type="button" class="confirm-button" @click="onConfirm">
             Confirm
-          </button>
+          </BaseButton>
         </div>
       </div>
     </div>
@@ -66,6 +66,8 @@
 
 <script setup>
   //begin-region Variables
+
+  import BaseButton from './BaseButton.vue';
 
   const emit = defineEmits(['closeModal', 'onConfirm']);
 

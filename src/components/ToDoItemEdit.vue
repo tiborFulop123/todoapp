@@ -18,21 +18,22 @@
       </div>
 
       <ToDoPriority v-model:priority="localTodo.priority" />
+      <div class="flex flexf-col sm:invisible visible">
+        <BaseButton
+          class="flex justify-center flex-nowrap bg-green-500 rounded-2xl w-2.5 h-2 ml-2"
+          @click="setPriority(priorities.High)"
+        />
 
-      <BaseButton
-        :color="'bg-green-500'"
-        @click="setPriority(priorities.High)"
-      />
-
-      <BaseButton
-        :color="'bg-yellow-500'"
-        @click="setPriority(priorities.Medium)"
-      />
-      <BaseButton
-        :color="'bg-red-500'"
-        :is-highlihted="false"
-        @click="setPriority(priorities.Low)"
-      />
+        <BaseButton
+          class="flex justify-center flex-nowrap bg-yellow-500 rounded-2xl w-2.5 h-2 ml-2"
+          @click="setPriority(priorities.Medium)"
+        />
+        <BaseButton
+          class="flex justify-center flex-nowrap bg-red-500 rounded-2xl w-2.5 h-2 ml-2"
+          :is-highlihted="false"
+          @click="setPriority(priorities.Low)"
+        />
+      </div>
     </div>
 
     <div

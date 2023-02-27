@@ -112,7 +112,9 @@
     if (localTodo.value.priority === priorities.Medium) {
       return 'bg-yellow-500';
     }
-    if (localTodo.value.priority === priorities.Low) return 'bg-green-300';
+    if (localTodo.value.priority === priorities.Low) {
+      return 'bg-green-300';
+    }
   });
 
   //end-region

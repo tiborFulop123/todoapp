@@ -6,29 +6,29 @@
 
   <div class="relative flex flex-wrap flex-col rounded-2xl">
     <div class="flex justify-end">
-      <button
+      <BaseButton
         class="flex justify-center relative bg-white rounded-2xl sm:w-[125px] sm:h-[33px] w-[10px] h-[10px] sm:visible invisible"
         :class="priorityColor"
         @click="toggleDropDown"
       >
         {{ priority }}
+      </BaseButton>
 
+      <div
+        v-if="isDropDownShown"
+        id="PriorityPicker"
+        class="absolute dropdown-content flex flex-col text-left w-[125px] top-10"
+      >
         <div
-          v-if="isDropDownShown"
-          id="PriorityPicker"
-          class="absolute dropdown-content flex flex-col text-left w-[125px] top-full pt-3"
+          class="text-black border-black-500 border-2 bg-white rounded-2xl p-[17px]"
         >
-          <div
-            class="text-black border-black-500 border-2 bg-white rounded-2xl p-[17px]"
-          >
-            <p @click="setPriority(priorities.High)">High</p>
+          <p @click="setPriority(priorities.High)">High</p>
 
-            <p @click="setPriority(priorities.Medium)">Medium</p>
+          <p @click="setPriority(priorities.Medium)">Medium</p>
 
-            <p @click="setPriority(priorities.Low)">Low</p>
-          </div>
+          <p @click="setPriority(priorities.Low)">Low</p>
         </div>
-      </button>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +36,7 @@
 <script setup>
   import { ref, computed } from 'vue';
   import { priorities } from '../utils/priorities';
+  import BaseButton from './BaseButton.vue';
 
   //begin-region Variables
 

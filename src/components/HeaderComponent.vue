@@ -4,21 +4,20 @@
       To Do List
     </span>
 
-    <div>
-      <button
-        class="ml-32 bg-green-500 text-white rounded-full w-8 h-8 sm:h-14 sm:w-14"
-        @click="addToDo()"
-      >
-        <span class="flex justify-center"
-          ><img class="h-full w-full m-2" :src="buttonIcon" />
-        </span>
-      </button>
-    </div>
+    <BaseButton
+      class="ml-32 bg-green-500 text-white rounded-full w-8 h-8 sm:h-14 sm:w-14"
+      @click="addToDo()"
+    >
+      <span class="flex justify-center"
+        ><img class="h-full w-full" :src="buttonIcon" />
+      </span>
+    </BaseButton>
   </div>
 </template>
 
 <script setup>
   import buttonIcon from './../assets/buttonIcon.svg';
+  import BaseButton from './BaseButton.vue';
 
   //begin-region Variables
 

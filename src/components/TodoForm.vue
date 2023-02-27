@@ -2,8 +2,7 @@
   <div>
     <div>
       <input type="text" v-model="todoText" />
-
-      <button @click="addToDo(todoText)">&#43;</button>
+      <BaseButton @click="addToDo(todoText)" />&#43;
     </div>
   </div>
 </template>
@@ -11,6 +10,7 @@
 <script setup>
   import { ref } from 'vue';
   import { defineEmits } from 'vue';
+  import BaseButton from './BaseButton.vue';
 
   //begin-region Variables
 
