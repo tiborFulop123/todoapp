@@ -1,35 +1,46 @@
 <template>
-  <li v-for="(todo, index) in toDos" v-bind:key="todo.id">
-    <div class="p-6 bg-gray-200 rounded-lg border-radius">
-      <div class="color #000000">{{ todo.title }}</div>
-      <div class="color #000000">{{ todo.text }}</div>
-      <div class="color #000000">{{ todo.priority }}</div>
-      <div class="color #000000">{{ todo.created_at }}</div>
-      <div class="color #000000">{{ todo.status }}</div>
-    </div>
-
-    <button class="border-radius: 50%;" @click="removeToDo(index)">
-      delete
-    </button>
-  </li>
-  <div></div>
-
-  <img />
+  <div v-for="(todo, index) in toDos" v-bind:key="todo.id">
+    <ToDoItem
+      v-if="editingIndex !== index"
+      @toDoDeleted="removeToDo(index)"
+      :toDo="todo"
+      @click="editingIndex = index"
+    />
+    <ToDoItemEdit
+      v-else
+      @toDoDeleted="removeToDo(index)"
+      @toDoSaved="saveToDo(index)"
+      :toDo="todo"
+      @toDoUpdated="
+        (newTodo) => {
+          toDos[index] = newTodo;
+        }
+      "
+    >
+    </ToDoItemEdit>
+  </div>
 </template>
 
 <script setup>
-  const emit = defineEmits(['toDoDeleted']);
-
-  function removeToDo(index) {
-    emit('toDoDeleted', index);
-  }
+  import ToDoItem from './ToDoItem.vue';
+  import { ref } from 'vue';
+  import ToDoList from './ToDoList.vue';
+  import ToDoItemEdit from './ToDoItemEdit.vue';
+  const editingIndex = ref(null);
 
   const props = defineProps({
     toDos: { type: Array, required: true },
   });
-</script>
 
-<!-- felhasználó látnia kell a teendő listát, 
-  amely megjeleníti   a megadott szöveget, együtt más
-   információkkal, mint például a teendő 
-   hozzáadásának dátuma és időpontja. -->
+  const emit = defineEmits(['toDoDeleted']);
+
+  function removeToDo(index) {
+    emit('toDoDeleted', index);
+    console.log(index);
+    editingIndex.value = null;
+  }
+  function saveToDo() {
+    editingIndex = null;
+    emit('toDoSaved');
+  }
+</script>

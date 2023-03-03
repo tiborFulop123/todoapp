@@ -7,19 +7,10 @@
     emit('toDoAdded', todoText.value);
     todoText.value = '';
   }
-
-  function clearToDo(clear) {
-    emit('toDoCleared', clear);
-    {
-      toDos.value = [];
-    }
-  }
 </script>
 
 <template>
   <div>
-    <button class="" @click="clearToDo">clear</button>
-
     <div>
       <input type="text" v-model="todoText" />
       <button class="" @click="addToDo(todoText)">&#43;</button>
