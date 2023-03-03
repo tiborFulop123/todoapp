@@ -1,48 +1,55 @@
 <template>
   <div class="flex flex-nowrap">
     <div>
-      <button
+      <BaseButton
         class="rounded-lg sm:px-[40px] sm:py-[15px] px-[15px] py-[5px] bg-green-500 text-white font-bold"
-        style="background-color: #38cb89"
         @click="saveToDo()"
-      >
-        Save
-      </button>
+        ><p>Save</p>
+      </BaseButton>
     </div>
+
     <div class="ml-10">
-      <button
+      <BaseButton
         class="rounded-lg sm:px-[40px] sm:py-[15px] px-[15px] py-[5px] text-black font-bold just"
         style="background-color: #e6e6e6"
-        @click="isModalOpen = true"
+        @click="openModal"
       >
-        Delete
-      </button>
+        <p>Delete</p>
+      </BaseButton>
     </div>
-    <popUpToDoListConfirmation
+
+    <PopUpToDoListConfirmation
       :is-open="isModalOpen"
       @close-modal="closeModal"
-      @YesConfirm="removeToDo"
-    ></popUpToDoListConfirmation>
+      @onConfirm="removeToDo"
+    />
   </div>
 </template>
 
 <script setup>
   import { ref } from 'vue';
-  import popUpToDoListConfirmation from './popUpToDoListConfirmation.vue';
+  import PopUpToDoListConfirmation from './PopUpToDoListConfirmation.vue';
+  import BaseButton from './BaseButton.vue';
+  //begin-region Variables
+  const emit = defineEmits(['toDoDeleted']);
 
   const isModalOpen = ref(false);
-  const emit = defineEmits(['toDoDeleted']);
-  function removeToDo() {
-    emit('toDoDeleted');
+
+  //end-region
+
+  //begin-region Functions
+
+  function openModal() {
+    isModalOpen.value = true;
   }
-  function saveToDo() {
-    editingIndex = null;
-    emit('toDoSaved');
-  }
-  const props = defineProps({
-    toDos: { type: Array, required: true },
-  });
+
   function closeModal() {
     isModalOpen.value = false;
   }
+
+  function removeToDo(index) {
+    emit('toDoDeleted', index);
+  }
+
+  //end-region
 </script>

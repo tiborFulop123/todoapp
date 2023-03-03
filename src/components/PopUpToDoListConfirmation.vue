@@ -1,11 +1,11 @@
 <template>
   <div
+    v-if="isOpen"
     class="modal fade fixed top-0 z-10 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
     id="exampleModalCenter"
     tabindex="-1"
     aria-labelledby="exampleModalCenterTitle"
     aria-modal="true"
-    v-if="isOpen"
     @click="closeModal"
   >
     <div
@@ -14,6 +14,7 @@
       <Teleport to="body">
         <div class="w-full h-full fixed top-0 bg-gray-500 opacity-90"></div
       ></Teleport>
+
       <div
         class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
       >
@@ -26,54 +27,74 @@
           >
             Confirmation PopUp
           </h5>
-          <button
+
+          <BaseButton
             type="button"
-            class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+            class="btn-close box-content text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
             data-bs-dismiss="modal"
             aria-label="Close"
-          ></button>
+          />
         </div>
+
         <div class="modal-body relative p-4">
           <p>
             Are you sure you want to delete this item? This operation is
             permanent and you will not be undo this action!
           </p>
         </div>
+
         <div
           class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md"
         >
-          <button
-            class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+          <BaseButton
+            class="confirm-button"
             type="button"
             data-bs-dismiss="modal"
             @click="closeModal"
           >
             No
-          </button>
-          <button
-            type="button"
-            class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1"
-            @click="YesConfirm"
-          >
-            Yes
-          </button>
+          </BaseButton>
+
+          <BaseButton type="button" class="confirm-button" @click="onConfirm">
+            Confirm
+          </BaseButton>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
-  const emit = defineEmits(['closeModal', 'YesConfirm']);
-  function YesConfirm() {
-    emit('YesConfirm');
-  }
-  function closeModal() {
-    emit('closeModal');
-  }
+  //begin-region Variables
+
+  import BaseButton from './BaseButton.vue';
+
+  const emit = defineEmits(['closeModal', 'onConfirm']);
+
   const props = defineProps({
     isOpen: {
       type: Boolean,
       default: false,
     },
   });
+
+  //end-region
+
+  //begin-region Functions
+
+  function onConfirm() {
+    emit('onConfirm');
+  }
+
+  function closeModal() {
+    emit('closeModal');
+  }
+
+  //end-region
 </script>
+
+<style scoped>
+  .confirm-button {
+    @apply inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out;
+  }
+</style>

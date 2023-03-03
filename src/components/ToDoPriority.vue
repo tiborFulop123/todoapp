@@ -3,63 +3,75 @@
     class="w-full h-full absolute bg-black opacity-10 rounded-xl left-0 top-0"
     v-if="isDropDownShown"
   ></div>
+
   <div class="relative flex flex-wrap flex-col rounded-2xl">
     <div class="flex justify-end">
-      <button
-        @click="showDropDown"
+      <BaseButton
         class="flex justify-center relative bg-white rounded-2xl sm:w-[125px] sm:h-[33px] w-[10px] h-[10px] sm:visible invisible"
-        :class="color(priority)"
+        :class="priorityColor"
+        @click="toggleDropDown"
       >
-        {{ priority }} <img />
+        {{ priority }}
+      </BaseButton>
+
+      <div
+        v-if="isDropDownShown"
+        id="PriorityPicker"
+        class="absolute dropdown-content flex flex-col text-left w-[125px] top-10"
+      >
         <div
-          v-if="isDropDownShown"
-          id="myDropdown"
-          class="absolute dropdown-content flex flex-col text-left w-[125px] top-[100%] pt-3"
+          class="text-black border-black-500 border-2 bg-white rounded-2xl p-[17px]"
         >
-          <div
-            class="text-black border-black-500 border-2 bg-white rounded-2xl p-[17px]"
-          >
-            <p class="" @click="setPriority('High')">High</p>
-            <p class="" @click="setPriority('Medium')">Medium</p>
-            <p class="" @click="setPriority('Low')">Low</p>
-          </div>
+          <p @click="setPriority(priorities.High)">High</p>
+
+          <p @click="setPriority(priorities.Medium)">Medium</p>
+
+          <p @click="setPriority(priorities.Low)">Low</p>
         </div>
-      </button>
-      <!-- {{ priority }}
-        <img class="w-[14px]" :src="VectorDown" /> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue';
-  import VectorDown from './../assets/VectorDown.svg';
+  import { ref, computed } from 'vue';
+  import { priorities } from '../utils/priorities';
+  import BaseButton from './BaseButton.vue';
 
-  defineProps({ priority: { type: String } });
+  //begin-region Variables
+
+  const props = defineProps({ priority: { type: String } });
 
   const emit = defineEmits(['update:priority']);
 
   const isDropDownShown = ref(false);
 
-  function color(priority) {
+  const priorityColor = computed(() => {
     if (isDropDownShown.value) {
       return 'bg-white';
     }
-    if (priority == 'High') {
+    if (props.priority === priorities.High) {
       return 'bg-red-500 text-white';
-    } else if (priority == 'Medium') {
+    }
+    if (props.priority === priorities.Medium) {
       return 'bg-yellow-500 text-white';
-    } else if (priority == 'Low') {
+    }
+    if (props.priority === priorities.Low) {
       return 'bg-green-300 text-white';
     }
+  });
+
+  //end-region
+
+  //begin-region Functions
+
+  function setPriority(priority) {
+    emit('update:priority', priority);
   }
 
-  function showDropDown() {
+  function toggleDropDown() {
     isDropDownShown.value = !isDropDownShown.value;
   }
 
-  function setPriority(priority) {
-    console.log(priority);
-    emit('update:priority', priority);
-  }
+  //end-region
 </script>

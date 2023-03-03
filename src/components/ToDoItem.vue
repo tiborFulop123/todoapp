@@ -1,8 +1,10 @@
 <template>
   <div
-    class="relative sm:mx-auto mx-[16px] flex sm:flex-col space-y-8 justify-center rounded-2xl bg-white border-black border-2 p-[18px] m-[50px] sm:w-[610px] w-[320px] flex-row"
+    v-if="!isEditing"
+    class="relative sm:mx-auto mx-4 flex sm:flex-col space-y-8 justify-center rounded-2xl bg-white border-black border-2 p-[18px] m-[50px] sm:w-[610px] w-80 flex-row"
+    @click="setEditing"
   >
-    <div class="w-full lg:flex flex flex-row">
+    <div class="w-full flex flex-row">
       <div class="m-auto mr-5">
         <div
           class="p-2 border-black border-[3px] rounded-full w-6 h-6 flex-row lg:hidden"
@@ -12,36 +14,35 @@
         <p
           class="w-full placeholder-black sm:text-5xl text-lg flex font-bold text-area lg:flex mt-5"
         >
+          Title
           {{ toDo.title }}
         </p>
+
         <div
           class="flex w-full items-center sm:h-[12px] h-[5px] lg:flex hidden"
         >
           <img :src="dateIcon" class="lg:flex hidden mr-1 h-3 w-3" />
-          {{ newDate() }}
+          {{ localTodo.createdAt }}
         </div>
 
         <div class="flex w-full sm:h-[12px] lg:hidden text-gray-500">
           <img :src="dateIcon" class="mr-1 h-3 w-3 hidden" />
-          {{ newDate() }}
+          {{ localTodo.createdAt }}
         </div>
       </div>
 
       <div class="flex">
         <div
-          class="sm:invisible visible rounded-full h-[10px] w-[10px] my-9"
-          :class="{
-            'bg-green-500': 'Low' == localTodo.priority,
-            'bg-yellow-500': 'Medium' == localTodo.priority,
-            'bg-red-500': 'High' == localTodo.priority,
-          }"
+          class="sm:invisible visible rounded-full h-2.5 w-2.5 my-9"
+          :class="colors"
         ></div>
-        <ToDoPriority v-model:priority="localTodo.priority" class="" />
+
+        <ToDoPriority v-model:priority="localTodo.priority" />
       </div>
     </div>
 
     <div class="flex w-full justify-between hidden">
-      <div class="">
+      <div>
         <p
           class="w-full placeholder-black leading-[3rem] sm:text-5xl text-lg flex mt-4 font-bold text-area lg:flex hidden"
         >
@@ -54,7 +55,8 @@
       </div>
       <div class="flex w-full items-center sm:h-[12px] h-[5px] lg:flex hidden">
         <img :src="dateIcon" class="lg:flex hidden mr-1 h-3 w-3" />
-        {{ newDate() }}
+
+        {{ localTodo.createdAt }}
       </div>
     </div>
 
@@ -63,37 +65,75 @@
     >
       <div class="flex justify-between">
         <div class="sm:text-3xl text-base flex-wrap break-all lg:flex hidden">
-          <p>Cras placerat proin.</p>
+          <p>description</p>
         </div>
 
         <div class="p-2 border-black border-[6px] rounded-full w-10 h-10"></div>
       </div>
     </div>
   </div>
+
+  <ToDoItemEdit
+    v-else
+    @toDoDeleted="removeToDo"
+    @toDoSaved="saveTodo"
+    :toDo="toDo"
+    @toDoUpdated="updateToDo"
+  />
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
+  import { priorities } from '../utils/priorities';
   import ToDoPriority from './ToDoPriority.vue';
+  import ToDoItemEdit from './ToDoItemEdit.vue';
   import dateIcon from './../assets/dateIcon.svg';
 
-  const priorities = ['Low', 'Medium', 'High'];
-  const selectedPriority = ref('');
-  const localTodo = ref(props.toDo ?? '');
+  //begin-region Variables
+
+  const emit = defineEmits([
+    'toDoDeleted',
+    'toDoSaved',
+    'toDoUpdated',
+    'selectEditing',
+  ]);
+
   const props = defineProps({
     toDo: { type: Object, required: true },
+    isEditing: { type: Boolean },
   });
 
-  function newDate() {
-    const today = new Date();
-    return (
-      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
-    );
+  const localTodo = ref(props.toDo ?? '');
+
+  const colors = computed(() => {
+    if (localTodo.value.priority === priorities.High) {
+      return 'bg-red-500 ';
+    }
+    if (localTodo.value.priority === priorities.Medium) {
+      return 'bg-yellow-500';
+    }
+    if (localTodo.value.priority === priorities.Low) {
+      return 'bg-green-300';
+    }
+  });
+
+  //end-region
+
+  //begin-region Functions
+
+  function removeToDo(index) {
+    emit('toDoDeleted', index);
   }
 
-  {
-    {
-      newDate;
-    }
+  function updateToDo(index, newTodo) {
+    const newTodos = [...props.toDos];
+    newTodos[index] = newTodo;
+    emit('upDatedToDos', newTodos);
   }
+
+  function setEditing() {
+    emit('selectEditing');
+  }
+
+  //end-region
 </script>
