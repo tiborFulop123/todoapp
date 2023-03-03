@@ -6,10 +6,20 @@
   >
     <div class="w-full flex flex-row">
       <div class="m-auto mr-5">
-        <div
-          class="p-2 border-black border-[3px] rounded-full w-6 h-6 flex-row lg:hidden"
-        ></div>
+        <div class="relative">
+          <button
+            @click.stop="toggleButton"
+            class="p-2 border-black border-3 rounded-full w-6 h-6 flex-row lg:hidden"
+          >
+            <div v-if="isActive" class="check-container ml-[-11px] mt-[-11px]">
+              <svg class="animated-check" viewBox="0 0 24 24">
+                <path d="M4.1 12.7L9 17.6 20.4 4.1" fill="none" />
+              </svg>
+            </div>
+          </button>
+        </div>
       </div>
+
       <div class="flex flex-col w-full items-center">
         <p
           class="w-full placeholder-black sm:text-5xl text-lg flex font-bold text-area lg:flex mt-5"
@@ -18,14 +28,12 @@
           {{ toDo.title }}
         </p>
 
-        <div
-          class="flex w-full items-center sm:h-[12px] h-[5px] lg:flex hidden"
-        >
+        <div class="flex w-full items-center sm:h-3 h-1.25 lg:flex hidden">
           <img :src="dateIcon" class="lg:flex hidden mr-1 h-3 w-3" />
           {{ localTodo.createdAt }}
         </div>
 
-        <div class="flex w-full sm:h-[12px] lg:hidden text-gray-500">
+        <div class="flex w-full sm:h-3 lg:hidden text-gray-500">
           <img :src="dateIcon" class="mr-1 h-3 w-3 hidden" />
           {{ localTodo.createdAt }}
         </div>
@@ -53,7 +61,7 @@
       <div class="hidden">
         <ToDoPriority v-model:priority="localTodo.priority" />
       </div>
-      <div class="flex w-full items-center sm:h-[12px] h-[5px] lg:flex hidden">
+      <div class="flex w-full items-center sm:h-3 h-1.25 lg:flex hidden">
         <img :src="dateIcon" class="lg:flex hidden mr-1 h-3 w-3" />
 
         {{ localTodo.createdAt }}
@@ -61,14 +69,30 @@
     </div>
 
     <div
-      class="w-full p-2 flex flex-col justify-between text-xl break-all text-gray-500 sm:text-3xl font-semibold relative hidden lg:flex"
+      class="w-full p-2 flex flex-col justify-between text-xl break-all text-gray-500 sm:text-3xl font-semibold hidden lg:flex"
     >
       <div class="flex justify-between">
         <div class="sm:text-3xl text-base flex-wrap break-all lg:flex hidden">
           <p>description</p>
         </div>
 
-        <div class="p-2 border-black border-[6px] rounded-full w-10 h-10"></div>
+        <div>
+          <div class="relative">
+            <button
+              @click.stop="toggleButton"
+              class="p-2 border-black border-[6px] rounded-full w-10 h-10 right-1"
+            >
+              <div
+                v-if="isActive"
+                class="check-container ml-[-14px] mt-[-14px]"
+              >
+                <svg class="animated-check" viewBox="0 0 24 24">
+                  <path d="M4.1 12.7L9 17.6 20.4 4.1" fill="none" />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -76,9 +100,8 @@
   <ToDoItemEdit
     v-else
     @toDoDeleted="removeToDo"
-    @toDoSaved="saveTodo"
-    :toDo="toDo"
     @toDoUpdated="updateToDo"
+    :toDo="toDo"
   />
 </template>
 
@@ -96,6 +119,7 @@
     'toDoSaved',
     'toDoUpdated',
     'selectEditing',
+    'check',
   ]);
 
   const props = defineProps({
@@ -117,6 +141,8 @@
     }
   });
 
+  const isActive = ref(false);
+
   //end-region
 
   //begin-region Functions
@@ -135,5 +161,64 @@
     emit('selectEditing');
   }
 
+  function toggleButton() {
+    isActive.value = !isActive.value;
+    emit('check');
+  }
+
   //end-region
 </script>
+
+<style scoped>
+  .animated-check {
+    height: 60px;
+    width: 80px;
+    position: absolute;
+    top: -23px;
+    right: -23px;
+  }
+
+  .check-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: 6px solid #4fda9b;
+    box-sizing: border-box;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .animated-check {
+      height: 15px;
+      width: 30px;
+      position: relative;
+      top: auto;
+      right: auto;
+      margin: 0 auto;
+    }
+    .check-container {
+      height: 24px;
+      width: 24px;
+      border-width: 3px;
+    }
+  }
+
+  .animated-check path {
+    fill: none;
+    stroke: #47f3a5;
+    stroke-width: 4;
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: draw 0.25s linear forwards;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 2;
+    }
+  }
+</style>

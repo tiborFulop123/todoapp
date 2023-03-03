@@ -6,10 +6,11 @@
 
     <ToDoList
       v-if="toDos?.length"
-      @updateTodos="updateToDos"
+      @upDatedToDos="updateToDos"
       @toDoDeleted="removeToDo"
-      :toDos="toDos"
       @toDoAdded="addNewTodo"
+      @toDoChecked="checkMark"
+      :toDos="toDos"
     />
 
     <div class="grid place-items-center" v-else>
@@ -41,6 +42,8 @@
       completed: true,
       title: '',
       text: '',
+      isChecked: '',
+      id: Math.random(),
     };
 
     toDos.value.push(newToDo);
