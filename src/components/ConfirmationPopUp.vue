@@ -69,14 +69,14 @@
 
   import BaseButton from './BaseButton.vue';
 
-  const emit = defineEmits(['closeModal', 'onConfirm']);
-
   const props = defineProps({
     isOpen: {
       type: Boolean,
       default: false,
     },
   });
+
+  const emit = defineEmits(['closeModal', 'onConfirm']);
 
   //end-region
 

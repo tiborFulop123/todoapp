@@ -1,16 +1,16 @@
 <template>
   <div class="flex justify-center mx-auto flex-col lg:w-[610px]">
-    <PopUpToDoListConfirmation />
+    <ConfirmationPopUp />
 
-    <HeaderComponent @toDoAdded="addNewTodo" />
+    <Header @toDoAdded="addNewTodo" />
 
     <ToDoList
       v-if="toDos?.length"
+      :toDos="toDos"
       @upDatedToDos="updateToDos"
       @toDoDeleted="removeToDo"
       @toDoAdded="addNewTodo"
       @toDoChecked="checkMark"
-      :toDos="toDos"
     />
 
     <div class="grid place-items-center" v-else>
@@ -23,8 +23,8 @@
   import { ref } from 'vue';
   import { newDate } from '../utils/date';
   import ToDoList from './ToDoList.vue';
-  import HeaderComponent from './HeaderComponent.vue';
-  import PopUpToDoListConfirmation from './PopUpToDoListConfirmation.vue';
+  import Header from './Header.vue';
+  import ConfirmationPopUp from './ConfirmationPopUp.vue';
   import toDoListPlaceholder from './../assets/toDoListPlaceholder.svg';
 
   //begin region Variables

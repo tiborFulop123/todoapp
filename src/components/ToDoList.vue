@@ -15,15 +15,16 @@
   import ToDoItem from './ToDoItem.vue';
 
   //begin-region Variables
-
-  const editingIndex = ref(null);
-
-  const isCheck = ref(null);
   const props = defineProps({
     toDos: { type: Array, required: true },
   });
 
   const emit = defineEmits(['toDoDeleted', 'upDatedToDos', 'toDoEditingIndex']);
+
+  const editingIndex = ref(null);
+
+  const isCheck = ref(null);
+
   //end-region
 
   //begin-region Functions
@@ -32,9 +33,9 @@
     editingIndex.value = index;
   }
   function checkItem(index) {
-    isCheck.value = index;
     const upDatedToDos = [...props.toDos];
     const checkedItem = upDatedToDos.splice(index, 1)[0];
+    isCheck.value = index;
     upDatedToDos.push(checkedItem);
     emit('upDatedToDos', upDatedToDos);
   }

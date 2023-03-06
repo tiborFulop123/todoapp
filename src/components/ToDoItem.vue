@@ -8,8 +8,8 @@
       <div class="m-auto mr-5">
         <div class="relative">
           <button
+            class="p-2 border-black border-[3px] rounded-full w-6 h-6 flex-row lg:hidden"
             @click.stop="toggleButton"
-            class="p-2 border-black border-3 rounded-full w-6 h-6 flex-row lg:hidden"
           >
             <div v-if="isActive" class="check-container ml-[-11px] mt-[-11px]">
               <svg class="animated-check" viewBox="0 0 24 24">
@@ -79,8 +79,8 @@
         <div>
           <div class="relative">
             <button
-              @click.stop="toggleButton"
               class="p-2 border-black border-[6px] rounded-full w-10 h-10 right-1"
+              @click.stop="toggleButton"
             >
               <div
                 v-if="isActive"
@@ -114,6 +114,11 @@
 
   //begin-region Variables
 
+  const props = defineProps({
+    toDo: { type: Object, required: true },
+    isEditing: { type: Boolean },
+  });
+
   const emit = defineEmits([
     'toDoDeleted',
     'toDoSaved',
@@ -121,13 +126,6 @@
     'selectEditing',
     'check',
   ]);
-
-  const props = defineProps({
-    toDo: { type: Object, required: true },
-    isEditing: { type: Boolean },
-  });
-
-  const localTodo = ref(props.toDo ?? '');
 
   const colors = computed(() => {
     if (localTodo.value.priority === priorities.High) {
@@ -140,6 +138,8 @@
       return 'bg-green-300';
     }
   });
+
+  const localTodo = ref(props.toDo ?? '');
 
   const isActive = ref(false);
 

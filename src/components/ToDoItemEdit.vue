@@ -66,12 +66,11 @@
   import dateIcon from './../assets/dateIcon.svg';
 
   //begin-region Variables
-
-  const emit = defineEmits(['toDoDeleted', 'toDoSaved', 'toDoUpdated']);
-
   const props = defineProps({
     toDo: { type: Object, required: true },
   });
+
+  const emit = defineEmits(['toDoDeleted', 'toDoSaved', 'toDoUpdated']);
 
   const localTodo = ref(props.toDo ?? '');
 

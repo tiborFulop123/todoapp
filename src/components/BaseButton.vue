@@ -10,7 +10,7 @@
 <script setup>
   //begin-region Variables
 
-  const props = defineProps({
+  defineProps({
     additonalClasses: { type: String },
   });
 

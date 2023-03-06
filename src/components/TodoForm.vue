@@ -23,8 +23,8 @@
   //begin-region Function
 
   function addToDo() {
-    emit('toDoAdded', todoText.value);
     todoText.value = '';
+    emit('toDoAdded', todoText.value);
   }
   //end-region
 </script>

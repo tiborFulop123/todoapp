@@ -18,7 +18,7 @@
       </BaseButton>
     </div>
 
-    <PopUpToDoListConfirmation
+    <ConfirmationPopUp
       :is-open="isModalOpen"
       @close-modal="closeModal"
       @onConfirm="removeToDo"
@@ -28,10 +28,10 @@
 
 <script setup>
   import { ref } from 'vue';
-  import PopUpToDoListConfirmation from './PopUpToDoListConfirmation.vue';
+  import ConfirmationPopUp from './ConfirmationPopUp.vue';
   import BaseButton from './BaseButton.vue';
   //begin-region Variables
-  const emit = defineEmits(['toDoDeleted']);
+  const emit = defineEmits(['toDoDeleted', 'toDoSaved']);
 
   const isModalOpen = ref(false);
 
@@ -51,5 +51,8 @@
     emit('toDoDeleted', index);
   }
 
+  function saveToDo() {
+    emit('toDoSaved');
+  }
   //end-region
 </script>
