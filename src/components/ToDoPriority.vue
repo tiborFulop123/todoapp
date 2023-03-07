@@ -1,13 +1,10 @@
 <template>
-  <div
-    class="w-full h-full absolute bg-black opacity-10 rounded-xl left-0 top-0"
-    v-if="isDropDownShown"
-  ></div>
+  <div class="w-full h-full absolute bg-black opacity-10 rounded-xl left-0 top-0" v-if="isDropDownShown"></div>
 
   <div class="relative flex flex-wrap flex-col rounded-2xl">
     <div class="flex justify-end">
       <BaseButton
-        class="flex justify-center relative bg-white rounded-2xl sm:w-[125px] sm:h-[33px] w-[10px] h-[10px] sm:visible invisible"
+        class="flex justify-center relative bg-white rounded-2xl sm:w-32 sm:h-8 w-2 h-8 sm:visible invisible"
         :class="priorityColor"
         @click="toggleDropDown"
       >
@@ -17,11 +14,9 @@
       <div
         v-if="isDropDownShown"
         id="PriorityPicker"
-        class="absolute dropdown-content flex flex-col text-left w-[125px] top-10"
+        class="absolute dropdown-content flex flex-col text-left w-32 top-10"
       >
-        <div
-          class="text-black border-black-500 border-2 bg-white rounded-2xl p-[17px]"
-        >
+        <div class="text-black border-black-500 border-2 bg-white rounded-2xl p-[17px]">
           <p @click="setPriority(priorities.High)">High</p>
 
           <p @click="setPriority(priorities.Medium)">Medium</p>

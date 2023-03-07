@@ -3,15 +3,17 @@
     <ToDoItem
       @selectEditing="setEditing(index)"
       @toDoDeleted="removeToDo(index)"
-      @check="checkItem(index)"
       :toDo="todo"
       :isEditing="editingIndex === index"
-    />
+    >
+      <CheckMark @check="checkItem(index)" />
+    </ToDoItem>
   </div>
 </template>
 
 <script setup>
   import { ref } from 'vue';
+  import CheckMark from './CheckMark.vue';
   import ToDoItem from './ToDoItem.vue';
 
   //begin-region Variables

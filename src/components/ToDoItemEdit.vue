@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative sm:mx-auto mx-[16px] flex flex-col space-y-8 justify-center rounded-2xl bg-white border-black border-2 p-[18px] m-[50px] sm:w-[610px] w-[320px]"
+    class="relative sm:mx-auto mx-4 flex flex-col space-y-8 justify-center rounded-2xl bg-white border-black border-2 p-4 m-12 sm:w-[610px] w-80"
   >
     <div class="flex w-full justify-between flex-row">
       <div class="flex flex-col">
@@ -10,7 +10,7 @@
           placeholder="Title"
         />
 
-        <div class="flex w-full items-center sm:h-[12px] h-[5px] lg:hidden">
+        <div class="flex w-full items-center sm:h-3 h-1 lg:hidden">
           <img :src="dateIcon" class="lg:hidden mr-1 h-3 w-3" />
 
           {{ localTodo.createdAt }}
@@ -20,25 +20,14 @@
       <ToDoPriority v-model:priority="localTodo.priority" />
       <div class="flex flexf-col sm:invisible visible">
         <BaseButton
-          class="flex justify-center flex-nowrap bg-green-500 rounded-2xl w-2.5 h-2 ml-2"
-          @click="setPriority(priorities.High)"
-        />
-
-        <BaseButton
-          class="flex justify-center flex-nowrap bg-yellow-500 rounded-2xl w-2.5 h-2 ml-2"
-          @click="setPriority(priorities.Medium)"
-        />
-        <BaseButton
-          class="flex justify-center flex-nowrap bg-red-500 rounded-2xl w-2.5 h-2 ml-2"
-          :is-highlihted="false"
-          @click="setPriority(priorities.Low)"
+          v-for="priorities in priorities"
+          class="flex justify-center flex-nowrap rounded-2xl w-2.5 h-2 ml-2"
+          :class="colors(priorities)"
         />
       </div>
     </div>
 
-    <div
-      class="w-full p-2 flex flex-row justify-between text-xl break-all text-gray-500 sm:text-3xl font-semibold"
-    >
+    <div class="w-full p-2 flex flex-row justify-between text-xl break-all text-gray-500 sm:text-3xl font-semibold">
       <div>
         <div class="sm:text-xl text-base flex-wrap break-all">
           <textarea
@@ -74,6 +63,17 @@
 
   const localTodo = ref(props.toDo ?? '');
 
+  function colors(priority) {
+    if (priority === priorities.High) {
+      return 'bg-red-500 ';
+    }
+    if (priority === priorities.Medium) {
+      return 'bg-yellow-500';
+    }
+    if (priority === priorities.Low) {
+      return 'bg-green-500';
+    }
+  }
   //end-region
 
   //begin-region Functions
