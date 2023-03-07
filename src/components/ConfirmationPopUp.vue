@@ -6,7 +6,7 @@
     aria-modal="true"
     @click="closeModal"
   >
-    <div class=" ">
+    <div>
       <Teleport to="body">
         <div class="w-full h-full fixed top-0 bg-gray-500 opacity-90"></div>
       </Teleport>
@@ -19,7 +19,7 @@
         >
           <h5 class="text-xl font-medium leading-normal text-gray-800">Confirmation PopUp</h5>
 
-          <BaseButton type="button" class="" aria-label="Close" />
+          <BaseButton type="button" aria-label="Close" />
         </div>
 
         <div class="modal-body relative p-4">
@@ -71,6 +71,8 @@
 
 <style scoped>
   .confirm-button {
-    @apply inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0  active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out;
+    @apply inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md
+ hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 
+active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out;
   }
 </style>

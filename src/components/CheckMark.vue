@@ -16,19 +16,26 @@
 <script setup>
   import { ref } from 'vue';
 
+  //start region Variables
+
   const props = defineProps({
     toDo: { type: Object, required: true },
     isEditing: { type: Boolean },
   });
 
-  const isActive = ref(false);
-
   const emit = defineEmits(['check']);
 
+  const isActive = ref(false);
+
+  //end region
+
+  //begin-region Functions
   function toggleButton() {
     isActive.value = !isActive.value;
     emit('check');
   }
+
+  //end region
 </script>
 
 <style scoped>

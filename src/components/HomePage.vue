@@ -14,7 +14,7 @@
     />
 
     <div class="grid place-items-center" v-else>
-      <img class="w-[288px] sm:w-[410px]" :src="toDoListPlaceholder" />
+      <img class="w-72 sm:w-[410px]" :src="toDoListPlaceholder" />
     </div>
   </div>
 </template>
