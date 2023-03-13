@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-  import { ref, defineEmits } from 'vue';
+  import { ref } from 'vue';
   import ConfirmationPopUp from './ConfirmationPopUp.vue';
   import BaseButton from './BaseButton.vue';
   //begin-region Variables
@@ -31,7 +31,6 @@
 
   const todos = ref([]);
 
-  const NewToDoTitle = ref('');
   //end-region
 
   //begin-region Functions

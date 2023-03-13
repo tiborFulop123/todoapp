@@ -9,8 +9,7 @@
 
       <div class="flex flex-col w-full items-center">
         <p class="w-full placeholder-black sm:text-5xl text-lg flex font-bold text-area lg:flex mt-5">
-          Title
-          {{ toDo.title }}
+          {{ localTodo.title || 'Title' }}
         </p>
 
         <div class="w-full items-center sm:h-3 h-1.25 lg:flex hidden">
@@ -41,11 +40,6 @@
       <div class="hidden">
         <ToDoPriority v-model:priority="localTodo.priority" />
       </div>
-      <div class="w-full items-center sm:h-3 h-1.25 lg:flex hidden">
-        <img :src="dateIcon" class="lg:flex hidden mr-1 h-3 w-3" />
-
-        {{ localTodo.createdAt }}
-      </div>
     </div>
 
     <div
@@ -53,7 +47,7 @@
     >
       <div class="flex justify-between">
         <div class="sm:text-3xl text-base flex-wrap break-all lg:flex hidden">
-          <p>description</p>
+          <p>{{ localTodo.text || 'description' }}</p>
         </div>
 
         <div>
@@ -63,7 +57,7 @@
     </div>
   </div>
 
-  <ToDoItemEdit v-else @toDoDeleted="removeToDo" @toDoUpdated="updateToDo" :toDo="toDo" />
+  <ToDoItemEdit v-else @toDoDeleted="removeToDo" @toDoUpdated="updateToDo" @toDoSaved="saveToDo" :toDo="toDo" />
 </template>
 
 <script setup>
@@ -114,6 +108,9 @@
 
   function setEditing() {
     emit('selectEditing');
+  }
+  function saveToDo() {
+    emit('toDoUpdated');
   }
   //end-region
 </script>
