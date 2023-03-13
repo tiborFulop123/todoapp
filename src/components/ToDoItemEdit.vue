@@ -5,6 +5,7 @@
     <div class="flex w-full justify-between flex-row">
       <div class="flex flex-col">
         <input
+          v-model="localTodo.title"
           class="w-full placeholder-black leading-[3rem] sm:text-5xl text-lg flex mt-4 font-bold"
           type="text"
           placeholder="Title"
@@ -20,9 +21,9 @@
       <ToDoPriority v-model:priority="localTodo.priority" />
       <div class="flex flexf-col sm:invisible visible">
         <BaseButton
-          v-for="priorities in priorities"
+          v-for="priority in priorities"
           class="flex justify-center flex-nowrap rounded-2xl w-2.5 h-2 ml-2"
-          :class="colors(priorities)"
+          :class="colors(priority)"
         />
       </div>
     </div>
@@ -82,5 +83,8 @@
     emit('toDoUpdated', updatedTodo);
   }
 
+  function updateToDo() {
+    emit('toDoUpdated');
+  }
   //end-region
 </script>
