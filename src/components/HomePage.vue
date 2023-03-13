@@ -60,7 +60,6 @@
   }
 
   function searchToDo(searchText) {
-    console.log(searchText);
     searchTitle.value = searchText;
   }
   //end-region

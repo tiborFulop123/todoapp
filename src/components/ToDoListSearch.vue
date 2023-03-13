@@ -12,9 +12,9 @@
 </template>
 
 <script setup>
-  import searchIcon from './../assets/searchIcon.svg';
   import { ref } from 'vue';
   import BaseButton from './BaseButton.vue';
+  import searchIcon from './../assets/searchIcon.svg';
 
   const emit = defineEmits(['toDoSearch']);
 
