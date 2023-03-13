@@ -32,9 +32,7 @@
 
   const searchTitle = ref('');
 
-  const searchedToDo = computed(() => {
-    return toDos.value.filter((item) => item.title.includes(searchTitle.value));
-  });
+  const searchedToDo = computed(() => toDos.value.filter((item) => item.title.includes(searchTitle.value)));
   //end-region
 
   //begin-region Functions

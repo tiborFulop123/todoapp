@@ -6,9 +6,7 @@
     </div>
 
     <div>
-      <button class="m-2 bg-black text-white rounded-full" @click="searchToDo">
-        <p>Search</p>
-      </button>
+      <BaseButton class="m-2 bg-black text-white rounded-full" @click="searchToDo"> <p>Search</p></BaseButton>
     </div>
   </div>
 </template>
@@ -16,6 +14,7 @@
 <script setup>
   import searchIcon from './../assets/searchIcon.svg';
   import { ref } from 'vue';
+  import BaseButton from './BaseButton.vue';
 
   const emit = defineEmits(['toDoSearch']);
 
