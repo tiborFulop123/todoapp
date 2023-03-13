@@ -9,7 +9,6 @@
 
 <script setup>
   import { ref } from 'vue';
-  import { defineEmits } from 'vue';
   import BaseButton from './BaseButton.vue';
 
   //begin-region Variables
