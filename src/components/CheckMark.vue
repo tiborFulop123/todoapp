@@ -4,7 +4,7 @@
       class="p-2 border-black sm:border-[6px] border-[4px] rounded-full sm:w-10 sm:h-10 w-6 h-6 right-1"
       @click.stop="toggleButton"
     >
-      <div v-if="isActive" class="check-container sm:ml-[-14px] sm:mt-[-14px] ml-[-12px] mt-[-12px]">
+      <div v-if="isActive" class="check-container sm:ml-[-14px] sm:mt-[-14px] -ml-3 -mt-3">
         <svg class="animated-check" viewBox="0 0 24 24">
           <path d="M4.1 12.7L9 17.6 20.4 4.1" fill="none" />
         </svg>
@@ -19,7 +19,6 @@
   //start region Variables
 
   const props = defineProps({
-    toDo: { type: Object, required: true },
     isEditing: { type: Boolean },
   });
 

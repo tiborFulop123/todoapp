@@ -1,10 +1,10 @@
 <template>
   <div v-for="(todo, index) in toDos" :key="todo.id">
     <ToDoItem
-      @selectEditing="setEditing(index)"
-      @toDoDeleted="removeToDo(index)"
       :toDo="todo"
       :isEditing="editingIndex === index"
+      @selectEditing="setEditing(index)"
+      @toDoDeleted="removeToDo(index)"
     >
       <CheckMark @check="checkItem(index)" />
     </ToDoItem>
@@ -21,7 +21,7 @@
     toDos: { type: Array, required: true },
   });
 
-  const emit = defineEmits(['toDoDeleted', 'upDatedToDos', 'toDoEditingIndex']);
+  const emit = defineEmits(['toDoDeleted', 'upDatedToDos', 'toDoEditingIndex', 'toDoAdded']);
 
   const editingIndex = ref(null);
 
