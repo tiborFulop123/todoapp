@@ -1,18 +1,45 @@
 <template>
-  <li v-for="(todo, index) in toDos" v-bind:key="todo.id">
-    {{ todo }}
-    <button @click="removeToDo(index)">delete</button>
-  </li>
+  <div v-for="(todo, index) in toDos" :key="todo.id">
+    <ToDoItem
+      :toDo="todo"
+      :isEditing="editingIndex === index"
+      @selectEditing="setEditing(index)"
+      @toDoDeleted="removeToDo(index)"
+    >
+      <CheckMark @check="checkItem(index)" />
+    </ToDoItem>
+  </div>
 </template>
 
 <script setup>
-const emit = defineEmits(["toDoDeleted"]);
+  import { ref } from 'vue';
+  import CheckMark from './CheckMark.vue';
+  import ToDoItem from './ToDoItem.vue';
 
-function removeToDo(index) {
-  emit("toDoDeleted", index);
-}
+  //begin-region Variables
+  const props = defineProps({
+    toDos: { type: Array, required: true },
+  });
 
-const props = defineProps({
-  toDos: { type: Array, required: true },
-});
+  const emit = defineEmits(['toDoDeleted', 'upDatedToDos', 'toDoEditingIndex', 'toDoAdded']);
+
+  const editingIndex = ref(null);
+
+  const isCheck = ref(null);
+
+  //end-region
+
+  //begin-region Functions
+
+  function setEditing(index) {
+    editingIndex.value = index;
+  }
+  function checkItem(index) {
+    const upDatedToDos = [...props.toDos];
+    const checkedItem = upDatedToDos.splice(index, 1)[0];
+    isCheck.value = index;
+    upDatedToDos.push(checkedItem);
+    emit('upDatedToDos', upDatedToDos);
+  }
+  //end-region
 </script>
