@@ -14,7 +14,7 @@
   import buttonIcon from './../assets/buttonIcon.svg';
   import BaseButton from './BaseButton.vue';
   import ToDoListSearch from './ToDoListSearch.vue';
-
+  import SortByButton from './SortByButton.vue';
   //begin-region Variables
 
   const emit = defineEmits(['toDoAdded', 'toDoSearch']);
@@ -27,7 +27,6 @@
     emit('toDoAdded');
   }
   function searchToDo(searchField) {
-    console.log(searchField);
     emit('toDoSearch', searchField);
   }
 
