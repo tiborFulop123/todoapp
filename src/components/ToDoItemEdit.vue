@@ -42,7 +42,7 @@
     </div>
 
     <div>
-      <ToDoListButtons />
+      <ToDoListButtons @toDoUpdated="saveToDo()" />
     </div>
   </div>
 </template>
@@ -83,6 +83,11 @@
     emit('toDoUpdated', updatedTodo);
   }
 
+  function saveToDo() {
+    localTodo.text;
+    localTodo.title;
+    emit('toDoUpdated');
+  }
   function updateToDo() {
     emit('toDoUpdated');
   }

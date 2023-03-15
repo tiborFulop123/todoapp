@@ -2,15 +2,14 @@
   <div class="flex justify-center mx-auto flex-col lg:w-[610px]">
     <ConfirmationPopUp />
 
-    <Header @toDoAdded="addNewTodo" />
+    <Header @toDoAdded="addNewTodo" @toDoSearch="searchToDo" />
 
     <ToDoList
-      v-if="toDos?.length"
-      :toDos="toDos"
+      v-if="searchedToDo?.length"
+      :toDos="searchedToDo"
       @upDatedToDos="updateToDos"
       @toDoDeleted="removeToDo"
       @toDoAdded="addNewTodo"
-      @toDoChecked="checkMark"
     />
 
     <div class="grid place-items-center" v-else>
@@ -20,7 +19,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import { newDate } from '../utils/date';
   import ToDoList from './ToDoList.vue';
   import Header from './Header.vue';
@@ -28,9 +27,12 @@
   import toDoListPlaceholder from './../assets/toDoListPlaceholder.svg';
 
   //begin region Variables
-
+  const emit = defineEmits(['toDoSearch']);
   const toDos = ref([]);
 
+  const searchTitle = ref('');
+
+  const searchedToDo = computed(() => toDos.value.filter((item) => item.title.includes(searchTitle.value)));
   //end-region
 
   //begin-region Functions
@@ -57,5 +59,8 @@
     toDos.value = upDatedToDos;
   }
 
+  function searchToDo(searchText) {
+    searchTitle.value = searchText;
+  }
   //end-region
 </script>
