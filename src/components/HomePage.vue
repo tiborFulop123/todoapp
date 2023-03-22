@@ -2,11 +2,20 @@
   <div class="flex justify-center mx-auto flex-col lg:w-[610px]">
     <ConfirmationPopUp />
 
-    <Header @toDoAdded="addNewTodo" @toDoSearch="searchToDo" />
+    <Header
+      @toDoAdded="addNewTodo"
+      @toDoSearch="searchToDo"
+      @titleSort="titleSort"
+      @descriptionSort="descriptionSort"
+      @upArrow="upArrow"
+      @downArrow="downArrow"
+      @dateSort="dateSort"
+      @prioritySort="prioritySort"
+    />
 
     <ToDoList
       v-if="searchedToDo?.length"
-      :toDos="searchedToDo"
+      :toDos="sortedTodos"
       @upDatedToDos="updateToDos"
       @toDoDeleted="removeToDo"
       @toDoAdded="addNewTodo"
@@ -26,16 +35,40 @@
   import ConfirmationPopUp from './ConfirmationPopUp.vue';
   import toDoListPlaceholder from './../assets/toDoListPlaceholder.svg';
 
-  //begin region Variables
   const emit = defineEmits(['toDoSearch']);
   const toDos = ref([]);
-
   const searchTitle = ref('');
 
-  const searchedToDo = computed(() => toDos.value.filter((item) => item.title.includes(searchTitle.value)));
-  //end-region
+  const sortBy = ref('');
+  const sortDirectionUp = 1;
 
-  //begin-region Functions
+  const sortDirection = ref(sortDirectionUp);
+
+  const searchedToDo = computed(() => toDos.value.filter((item) => item.title.includes(searchTitle.value)));
+
+  const priorityOrder = {
+    Low: 0,
+    Medium: 1,
+    High: 2,
+  };
+
+  const sortedTodos = computed(() => {
+    return [...searchedToDo.value].sort((todo1, todo2) => {
+      if (sortBy.value === 'priority') {
+        return sortDirection.value * (priorityOrder[todo1.priority] - priorityOrder[todo2.priority]);
+      }
+
+      const [field1, field2] = [todo1[sortBy.value], todo2[sortBy.value]];
+      console.log(field1, field2, todo1);
+      if (field1 === field2) {
+        return 0;
+      }
+      if (field1 < field2) {
+        return -1 * sortDirection.value;
+      }
+      return 1 * sortDirection.value;
+    });
+  });
 
   function addNewTodo() {
     const newToDo = {
@@ -47,7 +80,6 @@
       isChecked: '',
       id: Math.random(),
     };
-
     toDos.value.push(newToDo);
   }
 
@@ -62,5 +94,28 @@
   function searchToDo(searchText) {
     searchTitle.value = searchText;
   }
-  //end-region
+
+  function titleSort() {
+    sortBy.value = 'title';
+  }
+
+  function descriptionSort() {
+    sortBy.value = 'text';
+  }
+
+  function prioritySort() {
+    sortBy.value = 'priority';
+  }
+
+  function dateSort() {
+    sortBy.value = 'createdAt';
+  }
+
+  function upArrow() {
+    sortDirection.value = 1;
+  }
+
+  function downArrow() {
+    sortDirection.value = -1;
+  }
 </script>
