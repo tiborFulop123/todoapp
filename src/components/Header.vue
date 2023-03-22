@@ -8,6 +8,15 @@
   </div>
 
   <ToDoListSearch @toDoSearch="searchToDo"></ToDoListSearch>
+
+  <SortByButton
+    @titleSort="titleSort"
+    @descriptionSort="descriptionSort"
+    @upArrow="upArrow"
+    @downArrow="downArrow"
+    @prioritySort="prioritySort"
+    @dateSort="dateSort"
+  ></SortByButton>
 </template>
 
 <script setup>
@@ -17,7 +26,16 @@
   import SortByButton from './SortByButton.vue';
   //begin-region Variables
 
-  const emit = defineEmits(['toDoAdded', 'toDoSearch']);
+  const emit = defineEmits([
+    'toDoAdded',
+    'toDoSearch',
+    'titleSort',
+    'descriptionSort',
+    'upArrow',
+    'downArrow',
+    'dateSort',
+    'prioritySort',
+  ]);
 
   //end-region
 
@@ -28,6 +46,28 @@
   }
   function searchToDo(searchField) {
     emit('toDoSearch', searchField);
+  }
+
+  function titleSort() {
+    emit('titleSort');
+  }
+  function descriptionSort() {
+    emit('descriptionSort');
+  }
+
+  function upArrow() {
+    emit('upArrow');
+  }
+
+  function downArrow() {
+    emit('downArrow');
+  }
+  function dateSort() {
+    emit('dateSort');
+  }
+
+  function prioritySort() {
+    emit('prioritySort');
   }
 
   //end-region
