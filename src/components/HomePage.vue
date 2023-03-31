@@ -5,12 +5,12 @@
     <Header
       @toDoAdded="addNewTodo"
       @toDoSearch="searchToDo"
-      @titleSort="titleSort"
-      @descriptionSort="descriptionSort"
+      @sortTitle="sortTitle"
+      @sortDescription="sortDescription"
       @upArrow="upArrow"
       @downArrow="downArrow"
-      @dateSort="dateSort"
-      @prioritySort="prioritySort"
+      @sortDate="sortDate"
+      @sortPriority="sortPriority"
     />
 
     <ToDoList
@@ -59,14 +59,13 @@
       }
 
       const [field1, field2] = [todo1[sortBy.value], todo2[sortBy.value]];
-      console.log(field1, field2, todo1);
       if (field1 === field2) {
         return 0;
       }
       if (field1 < field2) {
         return -1 * sortDirection.value;
       }
-      return 1 * sortDirection.value;
+      return sortDirection.value;
     });
   });
 
@@ -95,19 +94,19 @@
     searchTitle.value = searchText;
   }
 
-  function titleSort() {
+  function sortTitle() {
     sortBy.value = 'title';
   }
 
-  function descriptionSort() {
+  function sortDescription() {
     sortBy.value = 'text';
   }
 
-  function prioritySort() {
+  function sortPriority() {
     sortBy.value = 'priority';
   }
 
-  function dateSort() {
+  function sortDate() {
     sortBy.value = 'createdAt';
   }
 

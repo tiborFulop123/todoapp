@@ -1,8 +1,11 @@
 <template>
   <div class="flex items-center mb-8 w-full justify-between">
-    <span class="inline-block align-middle text-black text-2xl sm:text-7xl"> To Do List </span>
+    <span class="inline-block align-middle text-black text-2xl sm:text-7xl mt-5 sm:mx-1 mx-5"> To Do List </span>
 
-    <BaseButton class="ml-32 bg-green-500 text-white rounded-full w-8 h-8 sm:h-14 sm:w-14" @click="addToDo()">
+    <BaseButton
+      class="ml-32 bg-green-500 text-white rounded-full w-8 h-8 sm:h-14 sm:w-14 sm:mx-1 mx-4"
+      @click="addToDo()"
+    >
       <span class="flex justify-center"><img class="h-full w-full" :src="buttonIcon" /> </span>
     </BaseButton>
   </div>
@@ -10,12 +13,12 @@
   <ToDoListSearch @toDoSearch="searchToDo"></ToDoListSearch>
 
   <SortByButton
-    @titleSort="titleSort"
-    @descriptionSort="descriptionSort"
+    @sortTitle="sortTitle"
+    @sortDescription="sortDescription"
     @upArrow="upArrow"
     @downArrow="downArrow"
-    @prioritySort="prioritySort"
-    @dateSort="dateSort"
+    @sortPriority="sortPriority"
+    @sortDate="sortDate"
   ></SortByButton>
 </template>
 
@@ -29,12 +32,12 @@
   const emit = defineEmits([
     'toDoAdded',
     'toDoSearch',
-    'titleSort',
-    'descriptionSort',
+    'sortTitle',
+    'sortDescription',
     'upArrow',
     'downArrow',
-    'dateSort',
-    'prioritySort',
+    'sortDate',
+    'sortPriority',
   ]);
 
   //end-region
@@ -48,11 +51,11 @@
     emit('toDoSearch', searchField);
   }
 
-  function titleSort() {
-    emit('titleSort');
+  function sortTitle() {
+    emit('sortTitle');
   }
-  function descriptionSort() {
-    emit('descriptionSort');
+  function sortDescription() {
+    emit('sortDescription');
   }
 
   function upArrow() {
@@ -62,12 +65,12 @@
   function downArrow() {
     emit('downArrow');
   }
-  function dateSort() {
-    emit('dateSort');
+  function sortDate() {
+    emit('sortDate');
   }
 
-  function prioritySort() {
-    emit('prioritySort');
+  function sortPriority() {
+    emit('sortPriority');
   }
 
   //end-region
